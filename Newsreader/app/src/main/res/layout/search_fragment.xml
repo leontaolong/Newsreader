@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/search_content"
+        android:id="@+id/search_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="search for a topic"></EditText>
@@ -14,35 +14,37 @@
         android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/search_content"
+        android:layout_toRightOf="@+id/search_text"
         android:text="Search" />
 
     <Button
-        android:id="@+id/start_date"
+        android:id="@+id/begin_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/search_content"
+        android:layout_below="@+id/search_text"
         android:text="Begin Date" />
 
     <TextView
+        android:id="@+id/begin_date_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/search_button"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/start_date" />
+        android:layout_toRightOf="@+id/begin_date" />
 
     <Button
         android:id="@+id/end_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/start_date"
+        android:layout_below="@+id/begin_date"
         android:text="End Date" />
 
     <TextView
+        android:id="@+id/end_date_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/start_date"
+        android:layout_below="@+id/begin_date"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/end_date" />
