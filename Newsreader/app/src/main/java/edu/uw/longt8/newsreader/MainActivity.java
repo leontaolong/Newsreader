@@ -11,13 +11,14 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity implements SearchFragment.OnSearchListener,
-        ArticleListFragment.OnListInteractionListener {
+        DatePickerFragment.OnDateSelectedListener, ArticleListFragment.OnListInteractionListener {
 
     private static final String TAG = "MainActivity";
     private FrameLayout panelLeft;
     private FrameLayout panelRight;
     private boolean isDualPanel;
 
+    private SearchFragment searchFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +64,9 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
     }
 
     private void showSearchFragment(){
+        searchFrag = new SearchFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.right_panel, new SearchFragment())
+                .replace(R.id.right_panel, searchFrag)
                 .commit();
     }
 
@@ -85,5 +87,10 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
     @Override
     public void onItemLongPressed(String article) {
 
+    }
+
+    @Override
+    public void onDateSelected(int year, int month, int dayOfMonth) {
+        searchFrag.onDateSelected(year, month, dayOfMonth);
     }
 }

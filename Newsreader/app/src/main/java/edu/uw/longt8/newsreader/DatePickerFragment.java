@@ -2,6 +2,7 @@ package edu.uw.longt8.newsreader;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -17,11 +18,29 @@ import java.util.Calendar;
  */
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
-    private SearchFragment onDateSelectedlistener;
+//    private SearchFragment onDateSelectedlistener;
+    private OnDateSelectedListener mListener;
 
 
     public DatePickerFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnDateSelectedListener) {
+            mListener = (OnDateSelectedListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
     /**
@@ -33,14 +52,14 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     public static DatePickerFragment newInstance(SearchFragment listener) {
         DatePickerFragment fragment = new DatePickerFragment();
         Bundle args = new Bundle();
-        fragment.setListener(listener);
+//        fragment.setListener(listener);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public void setListener(SearchFragment listener) {
-        this.onDateSelectedlistener = listener;
-    }
+//    public void setListener(SearchFragment listener) {
+//        this.onDateSelectedlistener = listener;
+//    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -54,6 +73,11 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        onDateSelectedlistener.onDateSelected(year, month, dayOfMonth);
+        mListener.onDateSelected(year, month, dayOfMonth);
+//        (SearchFragment.OnDateSelectedListener) getActivity()
+    }
+
+    public interface OnDateSelectedListener {
+        void onDateSelected(int year, int month, int dayOfMonth);
     }
 }

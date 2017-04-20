@@ -88,7 +88,7 @@ public class SearchFragment extends Fragment {
         beginDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment newFragment = new DatePickerFragment().newInstance(thisFrag);
+                DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(getActivity().getSupportFragmentManager(), "Begin Date");
                 currentDateSelector = BEGIN_DATE_SELECTOR;
             }
@@ -98,7 +98,7 @@ public class SearchFragment extends Fragment {
         endDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment newFragment = new DatePickerFragment().newInstance(thisFrag);
+                DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(getActivity().getSupportFragmentManager(), "End Date");
                 currentDateSelector = END_DATE_SELECTOR;
             }
