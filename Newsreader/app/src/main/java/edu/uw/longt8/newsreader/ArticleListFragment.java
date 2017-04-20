@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,11 +22,15 @@ public class ArticleListFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private static final String ARG_PARAM3 = "param3";
 
+    private static final String RECENT_LIST = "recentList";
+    private static final String SEARCH_LIST = "searchList";
 
     // TODO: Rename and change types of parameters
     private String searchTerm;
     private String beginDate;
     private String endDate;
+
+    private String currentListType;
 
     private OnListInteractionListener mListener;
 
@@ -55,22 +58,33 @@ public class ArticleListFragment extends Fragment {
         return fragment;
     }
 
+    public static ArticleListFragment newInstance() {
+        ArticleListFragment fragment = new ArticleListFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            currentListType = SEARCH_LIST;
             searchTerm = getArguments().getString(ARG_PARAM1);
             beginDate = getArguments().getString(ARG_PARAM2);
             endDate = getArguments().getString(ARG_PARAM2);
-        }
+        } else
+            currentListType = RECENT_LIST;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText(R.string.hello_blank_fragment);
-        return textView;
+        final View rootView = inflater.inflate(R.layout.article_list_fragment, container, false);
+
+//        TextView textView = new TextView(getActivity());
+//        textView.setText(R.string.hello_blank_fragment);
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

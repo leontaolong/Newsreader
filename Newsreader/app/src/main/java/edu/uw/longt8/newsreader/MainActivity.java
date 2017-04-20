@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
 
     private void showRecentListFragment(){
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.left_panel, new SearchFragment())
+                .replace(R.id.left_panel, new ArticleListFragment().newInstance())
                 .commit();
     }
 
