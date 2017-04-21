@@ -2,7 +2,6 @@ package edu.uw.longt8.newsreader;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -22,7 +21,6 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
 
     private SearchFragment searchFrag;
     private PreviewFragment previewFrag;
-    private FragmentTransaction fragTran;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
         Log.v(TAG, "Visibility " + panelRight);
         isDualPanel = panelRight.getVisibility() == View.VISIBLE;
 
-        fragTran = getSupportFragmentManager().beginTransaction();
 
         showRecentListFragment();
         showSearchFragment();
@@ -65,46 +62,52 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
     }
 
     private void showRecentListFragment() {
-        fragTran.replace(R.id.left_panel, new ArticleListFragment().newInstance())
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.left_panel, new ArticleListFragment().newInstance())
                 .addToBackStack(null)
                 .commit();
     }
 
     private void showSearchFragment() {
         searchFrag = new SearchFragment();
-        fragTran.replace(R.id.right_panel, searchFrag)
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.right_panel, searchFrag)
                 .addToBackStack(null)
                 .commit();
     }
 
     private void hideSearchFragment() {
-        fragTran.hide(searchFrag)
+        getSupportFragmentManager().beginTransaction()
+                .hide(searchFrag)
                 .addToBackStack(null)
                 .commit();
     }
 
     private void hidePreviewFragment() {
-        fragTran.hide(previewFrag)
+        getSupportFragmentManager().beginTransaction()
+                .hide(previewFrag)
                 .addToBackStack(null)
                 .commit();
     }
 
     private void showSearchListFragment(String searchTerm, String beginDate, String endDate) {
-        fragTran.replace(R.id.left_panel, new ArticleListFragment().newInstance(searchTerm, beginDate, endDate))
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.left_panel, new ArticleListFragment().newInstance(searchTerm, beginDate, endDate))
                 .addToBackStack(null)
                 .commit();
     }
 
     private void showPreviewFragment(String title, String imgUrl, String webUrl, String snippet) {
         previewFrag = new PreviewFragment().newInstance(title, imgUrl, webUrl, snippet);
-        fragTran.replace(R.id.right_panel, previewFrag)
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.right_panel, previewFrag)
                 .addToBackStack(null)
                 .commit();
     }
 
     private void showFullArticleFragment(String webUrl) {
         DialogFragment newFragment = FullArticleFragment.newInstance(webUrl);
-        newFragment.show(fragTran, "");
+        newFragment.show(getSupportFragmentManager().beginTransaction(), "");
     }
 
 

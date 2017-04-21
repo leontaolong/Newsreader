@@ -29,7 +29,6 @@ public class SearchFragment extends Fragment {
     private String endDate;
     private String beginDateDisplay;
     private String endDateDisplay;
-    private SearchFragment thisFrag;
     private String currentDateSelector;
 
     private static final String TAG = "SearchFragment";
