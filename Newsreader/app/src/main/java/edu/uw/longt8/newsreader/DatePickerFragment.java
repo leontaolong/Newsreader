@@ -23,7 +23,6 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     private OnDateSelectListener mListener;
 
 
-
     public DatePickerFragment() {
         // Required empty public constructor
     }

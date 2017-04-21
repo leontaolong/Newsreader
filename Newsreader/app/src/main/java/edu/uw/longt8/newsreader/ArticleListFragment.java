@@ -170,6 +170,7 @@ public class ArticleListFragment extends Fragment {
     public interface OnListInteractionListener {
         // TODO: Update argument type and name
         void onItemClick(String title, String imgUrl, String webUrl, String snippet);
+
         void onItemLongPress(String article);
     }
 

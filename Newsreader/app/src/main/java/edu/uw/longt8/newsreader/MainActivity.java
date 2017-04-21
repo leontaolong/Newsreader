@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
 
     private SearchFragment searchFrag;
     private PreviewFragment previewFrag;
+    private FragmentTransaction fragTran;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,20 +34,22 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
         Log.v(TAG, "Visibility " + panelRight);
         isDualPanel = panelRight.getVisibility() == View.VISIBLE;
 
+        fragTran = getSupportFragmentManager().beginTransaction();
+
         showRecentListFragment();
         showSearchFragment();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch(item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.item_top_stories:
                 showRecentListFragment();
                 if (searchFrag != null)
@@ -61,61 +64,54 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
         }
     }
 
-    private void showRecentListFragment(){
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.left_panel, new ArticleListFragment().newInstance())
+    private void showRecentListFragment() {
+        fragTran.replace(R.id.left_panel, new ArticleListFragment().newInstance())
                 .addToBackStack(null)
                 .commit();
     }
 
-    private void showSearchFragment(){
+    private void showSearchFragment() {
         searchFrag = new SearchFragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.right_panel, searchFrag)
+        fragTran.replace(R.id.right_panel, searchFrag)
                 .addToBackStack(null)
                 .commit();
     }
 
-    private void hideSearchFragment(){
-        getSupportFragmentManager().beginTransaction()
-                .hide(searchFrag)
+    private void hideSearchFragment() {
+        fragTran.hide(searchFrag)
                 .addToBackStack(null)
                 .commit();
     }
 
-    private void hidePreviewFragment(){
-        getSupportFragmentManager().beginTransaction()
-                .hide(previewFrag)
+    private void hidePreviewFragment() {
+        fragTran.hide(previewFrag)
                 .addToBackStack(null)
                 .commit();
     }
 
     private void showSearchListFragment(String searchTerm, String beginDate, String endDate) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.left_panel, new ArticleListFragment().newInstance(searchTerm, beginDate, endDate))
+        fragTran.replace(R.id.left_panel, new ArticleListFragment().newInstance(searchTerm, beginDate, endDate))
                 .addToBackStack(null)
                 .commit();
     }
 
     private void showPreviewFragment(String title, String imgUrl, String webUrl, String snippet) {
         previewFrag = new PreviewFragment().newInstance(title, imgUrl, webUrl, snippet);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.right_panel, previewFrag)
+        fragTran.replace(R.id.right_panel, previewFrag)
                 .addToBackStack(null)
                 .commit();
     }
 
     private void showFullArticleFragment(String webUrl) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         DialogFragment newFragment = FullArticleFragment.newInstance(webUrl);
-        newFragment.show(ft, "");
+        newFragment.show(fragTran, "");
     }
 
 
     @Override
     public void onSearch(String searchTerm, String beginDate, String endDate) {
-        Log.v(TAG, "Article Search Queries: searchTerm: " + searchTerm + " beginDate: "+
-        beginDate + " endDate " + endDate);
+        Log.v(TAG, "Article Search Queries: searchTerm: " + searchTerm + " beginDate: " +
+                beginDate + " endDate " + endDate);
         showSearchListFragment(searchTerm, beginDate, endDate);
     }
 

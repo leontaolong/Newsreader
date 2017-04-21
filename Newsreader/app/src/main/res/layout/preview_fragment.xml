@@ -8,39 +8,40 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/article_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:gravity="center" />
 
-    <ImageView
-        android:id="@+id/article_img"
-        android:padding="15dp"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/article_title">
+        <TextView
+            android:id="@+id/article_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center" />
 
-    </ImageView>
+        <ImageView
+            android:id="@+id/article_img"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_below="@id/article_title"
+            android:layout_centerHorizontal="true"
+            android:padding="15dp">
 
-    <TextView
-        android:id="@+id/article_snippet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/article_img"/>
+        </ImageView>
 
-    <Button
-        android:id="@+id/view_full_article"
-        android:text="See Full Article"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textSize="12dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/article_snippet"/>
+        <TextView
+            android:id="@+id/article_snippet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/article_img"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/view_full_article"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/article_snippet"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="See Full Article"
+            android:textSize="12dp" />
     </RelativeLayout>
 
 </ScrollView>

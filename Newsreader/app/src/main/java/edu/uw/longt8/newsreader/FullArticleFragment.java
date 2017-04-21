@@ -31,6 +31,7 @@ public class FullArticleFragment extends DialogFragment {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     *
      * @param webUrl Parameter 1.
      * @return A new instance of fragment FullArticleFragment.
      */

@@ -42,9 +42,10 @@ public class PreviewFragment extends Fragment {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     * @param title Parameter 1.
-     * @param imgUrl Parameter 2.
-     * @param webUrl Parameter 3.
+     *
+     * @param title   Parameter 1.
+     * @param imgUrl  Parameter 2.
+     * @param webUrl  Parameter 3.
      * @param snippet Parameter 4.
      * @return A new instance of fragment PreviewFragment.
      */

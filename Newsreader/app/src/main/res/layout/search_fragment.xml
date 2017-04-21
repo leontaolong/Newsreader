@@ -20,10 +20,10 @@
 
     <Button
         android:id="@+id/begin_date"
-        android:layout_marginTop="10dp"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/search_text"
+        android:layout_marginTop="10dp"
         android:text="Begin Date" />
 
     <TextView
@@ -31,16 +31,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/search_text"
-        android:layout_marginTop="23dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="23dp"
         android:layout_toRightOf="@+id/begin_date" />
 
     <Button
         android:id="@+id/end_date"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
         android:layout_below="@+id/begin_date"
+        android:layout_marginTop="7dp"
         android:text="End Date" />
 
     <TextView
@@ -48,8 +48,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/begin_date"
-        android:layout_marginTop="19dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="19dp"
         android:layout_toRightOf="@id/end_date" />
 
 </RelativeLayout>
