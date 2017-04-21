@@ -33,6 +33,7 @@ public class SearchFragment extends Fragment {
     private String currentDateSelector;
 
     private static final String TAG = "SearchFragment";
+
     private static final String BEGIN_DATE_SELECTOR = "beginDateSelector";
     private static final String END_DATE_SELECTOR = "endDateSelector";
 
@@ -48,13 +49,12 @@ public class SearchFragment extends Fragment {
 
         beginDateDisplay = new SimpleDateFormat("MM-dd-yyyy").format(DEFAULT_BEGIN_DATE);
         endDateDisplay = new SimpleDateFormat("MM-dd-yyyy").format(DEFAULT_END_DATE);
-
-        thisFrag = this;
     }
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     *
      * @return A new instance of fragment Search.
      */
     public static SearchFragment newInstance() {
@@ -135,15 +135,15 @@ public class SearchFragment extends Fragment {
     public void onDateSelected(int year, int month, int dayOfMonth) {
         // format date strings for both displaying and searching
         String dateDisplay = (month + 1) + "-" + dayOfMonth + "-" + year;
-        month+= 1;
+        month += 1;
         String dateSelected = "" + year;
-        if (month <10)
-            dateSelected+= "" + 0;
-        dateSelected+= "" + month;
-        if (dayOfMonth <10) {
+        if (month < 10)
+            dateSelected += "" + 0;
+        dateSelected += "" + month;
+        if (dayOfMonth < 10) {
             dateSelected += "" + 0;
         }
-        dateSelected+= "" + dayOfMonth;
+        dateSelected += "" + dayOfMonth;
 
         if (currentDateSelector.equals(BEGIN_DATE_SELECTOR)) {
             beginDateDisplay = dateDisplay;

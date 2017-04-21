@@ -18,8 +18,10 @@ import java.util.Calendar;
  */
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
-//    private SearchFragment onDateSelectedlistener;
+    private static final String TAG = "DatePickerFragment";
+
     private OnDateSelectedListener mListener;
+
 
 
     public DatePickerFragment() {
@@ -46,20 +48,16 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     * @param listener a parent SearchFragment listener
+     *
      * @return A new instance of fragment DatePickerFragment.
      */
-    public static DatePickerFragment newInstance(SearchFragment listener) {
+    public static DatePickerFragment newInstance() {
         DatePickerFragment fragment = new DatePickerFragment();
         Bundle args = new Bundle();
-//        fragment.setListener(listener);
         fragment.setArguments(args);
         return fragment;
     }
 
-//    public void setListener(SearchFragment listener) {
-//        this.onDateSelectedlistener = listener;
-//    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -74,7 +72,6 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         mListener.onDateSelected(year, month, dayOfMonth);
-//        (SearchFragment.OnDateSelectedListener) getActivity()
     }
 
     public interface OnDateSelectedListener {

@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
         switch(item.getItemId()){
             case R.id.item_top_stories:
                 showRecentListFragment();
+                hideSearchFragment();
                 return true;
             case R.id.item_search:
                 showSearchFragment();
@@ -70,13 +71,25 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
                 .commit();
     }
 
+    private void hideSearchFragment(){
+        getSupportFragmentManager().beginTransaction()
+                .hide(searchFrag)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    private void showTopicListFragment(String searchTerm, String beginDate, String endDate) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.left_panel, new ArticleListFragment().newInstance(searchTerm, beginDate, endDate))
+                .addToBackStack(null)
+                .commit();
+    }
+
     @Override
     public void onSearch(String searchTerm, String beginDate, String endDate) {
         Log.v(TAG, "Article Search Queries: searchTerm: " + searchTerm + " beginDate: "+
         beginDate + " endDate " + endDate);
-
-
-
+        showTopicListFragment(searchTerm, beginDate, endDate);
     }
 
     @Override
