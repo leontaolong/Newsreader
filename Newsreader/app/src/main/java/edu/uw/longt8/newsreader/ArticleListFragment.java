@@ -79,9 +79,9 @@ public class ArticleListFragment extends Fragment {
     public static ArticleListFragment newInstance(String searchTerm, String beginDate, String endDate) {
         ArticleListFragment fragment = new ArticleListFragment();
         Bundle args = new Bundle();
-            args.putString(SEARCH_TERM, searchTerm);
-            args.putString(BEGIN_DATE, beginDate);
-            args.putString(END_DATE, endDate);
+        args.putString(SEARCH_TERM, searchTerm);
+        args.putString(BEGIN_DATE, beginDate);
+        args.putString(END_DATE, endDate);
         fragment.setArguments(args);
         return fragment;
     }
@@ -114,7 +114,16 @@ public class ArticleListFragment extends Fragment {
             }
         });
 
-        TextView listTitle = (TextView)rootView.findViewById(R.id.listTitle);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Article article = (Article) parent.getItemAtPosition(position);
+                mListener.onItemLongPress(article.webUrl);
+                return true;
+            }
+        });
+
+        TextView listTitle = (TextView) rootView.findViewById(R.id.listTitle);
         if (getArguments() != null) {
             searchTerm = getArguments().getString(SEARCH_TERM);
             beginDate = getArguments().getString(BEGIN_DATE);
@@ -157,15 +166,10 @@ public class ArticleListFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+     **/
     public interface OnListInteractionListener {
         // TODO: Update argument type and name
         void onItemClick(String title, String imgUrl, String webUrl, String snippet);
-
         void onItemLongPress(String article);
     }
 
@@ -228,7 +232,7 @@ public class ArticleListFragment extends Fragment {
                                     if (doc.getJSONArray("multimedia") != null &&
                                             doc.getJSONArray("multimedia").length() > 0 &&
                                             doc.getJSONArray("multimedia").getJSONObject(1).getString("url") != null) {
-                                        imgUrl+= doc.getJSONArray("multimedia").getJSONObject(1).getString("url");
+                                        imgUrl += doc.getJSONArray("multimedia").getJSONObject(1).getString("url");
                                     } else
                                         imgUrl = null;
                                     articles.add(new Article(snippet, imgUrl, webUrl, headline, pubDate));
@@ -257,7 +261,6 @@ public class ArticleListFragment extends Fragment {
                             for (Article article : articles) {
                                 adapter.add(article);
                             }
-//                            fetchMoviePoster(response.getString("Poster"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -271,13 +274,4 @@ public class ArticleListFragment extends Fragment {
         //add the request to the queue to send the HTTP Request
         queue.add(jsonRequest);
     }
-
-//    //download the movie poster using an ImageLoader
-//    private void fetchMoviePoster(String url) {
-//        //loader utilizes the requestQueue!
-//        ImageLoader loader = VolleySingleton.getInstance(getActivity()).getImageLoader();
-//
-//        //get the image from the loader
-//        loader.get(url, ImageLoader.getImageListener(movieImage, 0, 0));
-//    }
 }

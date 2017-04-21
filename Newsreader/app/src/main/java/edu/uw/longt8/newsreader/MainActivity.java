@@ -1,7 +1,8 @@
 package edu.uw.longt8.newsreader;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -26,8 +27,6 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FragmentManager fragmentManager = getFragmentManager();
-
 
         panelLeft = (FrameLayout) findViewById(R.id.left_panel);
         panelRight = (FrameLayout) findViewById(R.id.right_panel);
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
 
         showRecentListFragment();
         showSearchFragment();
-
     }
 
     @Override
@@ -66,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
     private void showRecentListFragment(){
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.left_panel, new ArticleListFragment().newInstance())
+                .addToBackStack(null)
                 .commit();
     }
 
@@ -73,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
         searchFrag = new SearchFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.right_panel, searchFrag)
+                .addToBackStack(null)
                 .commit();
     }
 
@@ -105,6 +105,12 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
                 .commit();
     }
 
+    private void showFullArticleFragment(String webUrl) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        DialogFragment newFragment = FullArticleFragment.newInstance(webUrl);
+        newFragment.show(ft, "");
+    }
+
 
     @Override
     public void onSearch(String searchTerm, String beginDate, String endDate) {
@@ -121,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
 
     @Override
     public void onItemLongPress(String webUrl) {
-
+        showFullArticleFragment(webUrl);
     }
 
     @Override
@@ -131,6 +137,6 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
 
     @Override
     public void onViewFullClick(String webUrl) {
-
+        showFullArticleFragment(webUrl);
     }
 }

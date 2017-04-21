@@ -107,13 +107,6 @@ public class SearchFragment extends Fragment {
         return rootView;
     }
 
-//    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(String searchTerm) {
-//        if (mListener != null) {
-//            mListener.onSearch(searchTerm);
-//        }
-//    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
