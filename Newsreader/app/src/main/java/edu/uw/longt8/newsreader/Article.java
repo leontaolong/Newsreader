@@ -14,7 +14,7 @@ public class Article {
     public String headline;
     public String pubDate;
 
-    public Article(String snippet, String webUrl, String imgUrl, String headline, String pubDate) {
+    public Article(String snippet, String imgUrl, String webUrl, String headline, String pubDate) {
         this.snippet = snippet;
         this.webUrl = webUrl;
         this.headline = headline;

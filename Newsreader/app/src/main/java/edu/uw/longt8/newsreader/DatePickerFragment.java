@@ -20,7 +20,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     private static final String TAG = "DatePickerFragment";
 
-    private OnDateSelectedListener mListener;
+    private OnDateSelectListener mListener;
 
 
 
@@ -31,8 +31,8 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnDateSelectedListener) {
-            mListener = (OnDateSelectedListener) context;
+        if (context instanceof OnDateSelectListener) {
+            mListener = (OnDateSelectListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -71,10 +71,10 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        mListener.onDateSelected(year, month, dayOfMonth);
+        mListener.onDateSelect(year, month, dayOfMonth);
     }
 
-    public interface OnDateSelectedListener {
-        void onDateSelected(int year, int month, int dayOfMonth);
+    public interface OnDateSelectListener {
+        void onDateSelect(int year, int month, int dayOfMonth);
     }
 }

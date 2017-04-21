@@ -1,7 +1,6 @@
 package edu.uw.longt8.newsreader;
 
 import android.content.Context;
-import android.graphics.Movie;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -110,10 +109,11 @@ public class ArticleListFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Movie movie = (Movie) parent.getItemAtPosition(position);
-                Log.v(TAG, "You clicked on: " + movie);
+                Article article = (Article) parent.getItemAtPosition(position);
+                mListener.onItemClick(article.headline, article.imgUrl, article.webUrl, article.snippet);
             }
         });
+
         TextView listTitle = (TextView)rootView.findViewById(R.id.listTitle);
         if (getArguments() != null) {
             searchTerm = getArguments().getString(SEARCH_TERM);
@@ -134,12 +134,6 @@ public class ArticleListFragment extends Fragment {
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(String article) {
-        if (mListener != null) {
-            mListener.onItemClicked(article);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -170,9 +164,9 @@ public class ArticleListFragment extends Fragment {
      */
     public interface OnListInteractionListener {
         // TODO: Update argument type and name
-        void onItemClicked(String article);
+        void onItemClick(String title, String imgUrl, String webUrl, String snippet);
 
-        void onItemLongPressed(String article);
+        void onItemLongPress(String article);
     }
 
 
@@ -238,6 +232,7 @@ public class ArticleListFragment extends Fragment {
                                     } else
                                         imgUrl = null;
                                     articles.add(new Article(snippet, imgUrl, webUrl, headline, pubDate));
+                                    imgUrl = IMAGE_BASE_URL;
                                 }
                             } else {
                                 JSONArray docs = response.getJSONArray("results");

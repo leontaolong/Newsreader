@@ -11,7 +11,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity implements SearchFragment.OnSearchListener,
-        DatePickerFragment.OnDateSelectedListener, ArticleListFragment.OnListInteractionListener {
+        DatePickerFragment.OnDateSelectListener, ArticleListFragment.OnListInteractionListener,
+        PreviewFragment.OnViewFullClickListener {
 
     private static final String TAG = "MainActivity";
     private FrameLayout panelLeft;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
     private boolean isDualPanel;
 
     private SearchFragment searchFrag;
+    private PreviewFragment previewFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,10 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
         switch(item.getItemId()){
             case R.id.item_top_stories:
                 showRecentListFragment();
-                hideSearchFragment();
+                if (searchFrag != null)
+                    hideSearchFragment();
+                if (previewFrag != null)
+                    hidePreviewFragment();
                 return true;
             case R.id.item_search:
                 showSearchFragment();
@@ -78,32 +83,54 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
                 .commit();
     }
 
-    private void showTopicListFragment(String searchTerm, String beginDate, String endDate) {
+    private void hidePreviewFragment(){
+        getSupportFragmentManager().beginTransaction()
+                .hide(previewFrag)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    private void showSearchListFragment(String searchTerm, String beginDate, String endDate) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.left_panel, new ArticleListFragment().newInstance(searchTerm, beginDate, endDate))
                 .addToBackStack(null)
                 .commit();
     }
 
+    private void showPreviewFragment(String title, String imgUrl, String webUrl, String snippet) {
+        previewFrag = new PreviewFragment().newInstance(title, imgUrl, webUrl, snippet);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.right_panel, previewFrag)
+                .addToBackStack(null)
+                .commit();
+    }
+
+
     @Override
     public void onSearch(String searchTerm, String beginDate, String endDate) {
         Log.v(TAG, "Article Search Queries: searchTerm: " + searchTerm + " beginDate: "+
         beginDate + " endDate " + endDate);
-        showTopicListFragment(searchTerm, beginDate, endDate);
+        showSearchListFragment(searchTerm, beginDate, endDate);
     }
 
     @Override
-    public void onItemClicked(String article) {
-
-    }
-
-    @Override
-    public void onItemLongPressed(String article) {
+    public void onItemClick(String title, String imgUrl, String webUrl, String snippet) {
+        showPreviewFragment(title, imgUrl, webUrl, snippet);
 
     }
 
     @Override
-    public void onDateSelected(int year, int month, int dayOfMonth) {
+    public void onItemLongPress(String webUrl) {
+
+    }
+
+    @Override
+    public void onDateSelect(int year, int month, int dayOfMonth) {
         searchFrag.onDateSelected(year, month, dayOfMonth);
+    }
+
+    @Override
+    public void onViewFullClick(String webUrl) {
+
     }
 }
