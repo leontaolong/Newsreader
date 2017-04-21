@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.On
         panelLeft = (FrameLayout) findViewById(R.id.left_panel);
         panelRight = (FrameLayout) findViewById(R.id.right_panel);
         Log.v(TAG, "Visibility " + panelRight);
-        isDualPanel = panelRight.getVisibility() == View.VISIBLE;
 
+        isDualPanel = panelRight.getVisibility() == View.VISIBLE;
 
         showRecentListFragment();
         showSearchFragment();
