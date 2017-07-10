@@ -1,5 +1,5 @@
 # News Reader
-Reading the news (whether from traditional media or social networks) is a common use of mobile devices—the image of the subway full of newspaper-readers has been replaced with the subway full of phone-readers. This repo contains code of a Andorid application that allows the user to browse the day's news.
+Reading the news (whether from traditional media or social networks) is a common use of mobile devices—the image of the subway full of newspaper-readers has been replaced with the subway full of phone-readers. This repo contains code of a Android application that allows the user to browse the day's news.
 
 ## User Stories
 
